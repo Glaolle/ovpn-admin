@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	usernameRegexp       = `^([a-zA-Z0-9_.-@])+$`
+	usernameRegexp       = `^([a-zA-Z0-9_.\-@])+$`
 	passwordMinLength    = 6
 	downloadCertsApiUrl  = "/api/data/certs/download"
 	downloadCcdApiUrl    = "/api/data/ccd/download"
@@ -974,7 +974,7 @@ func (oAdmin *OvpnAdmin) userCreate(username, password string) (bool, string) {
 			log.Error(err)
 		}
 	} else {
-		o := runBash(fmt.Sprintf("cd %s && easyrsa build-client-full %s nopass 1>/dev/null", *easyrsaDirPath, username))
+		o := runBash(fmt.Sprintf("cd %s && ./easyrsa --batch build-client-full %s nopass 1>/dev/null", *easyrsaDirPath, username))
 		log.Debug(o)
 	}
 
